@@ -1,0 +1,9 @@
+Este archivo contiene la varianza de alta frecuencia para cada imagen de la carpeta:
+images\000020
+
+La varianza indica la dispersión de los valores de alta frecuencia.
+Valores mayores suelen corresponder a más bordes (y a veces mayor nitidez).
+
+000020_blur.png -> varianza alta frecuencia: 0.527
+000020_blur_gamma.png -> varianza alta frecuencia: 0.566
+000020_sharp.png -> varianza alta frecuencia: 6.893
