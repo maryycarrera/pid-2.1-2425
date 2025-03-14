@@ -3,6 +3,6 @@ Carpeta de imágenes: images\000058
 
 Valores mayores suelen corresponder a más bordes y mayor nitidez.
 
-000058_blur.png -> Coeficiente medio: 654497.000
-000058_blur_gamma.png -> Coeficiente medio: 634523.000
-000058_sharp.png -> Coeficiente medio: 1600194.500
+000058_blur.png -> Coeficiente medio: 0.947
+000058_blur_gamma.png -> Coeficiente medio: 0.918
+000058_sharp.png -> Coeficiente medio: 2.315

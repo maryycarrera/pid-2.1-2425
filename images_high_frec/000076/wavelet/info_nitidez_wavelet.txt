@@ -3,6 +3,6 @@ Carpeta de imágenes: images\000076
 
 Valores mayores suelen corresponder a más bordes y mayor nitidez.
 
-000076_blur.png -> Coeficiente medio: 693919.000
-000076_blur_gamma.png -> Coeficiente medio: 664381.500
-000076_sharp.png -> Coeficiente medio: 1693179.500
+000076_blur.png -> Coeficiente medio: 1.004
+000076_blur_gamma.png -> Coeficiente medio: 0.961
+000076_sharp.png -> Coeficiente medio: 2.450

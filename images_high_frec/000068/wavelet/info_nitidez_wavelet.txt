@@ -3,5 +3,5 @@ Carpeta de imágenes: images\000068
 
 Valores mayores suelen corresponder a más bordes y mayor nitidez.
 
-000068_blur_gamma.png -> Coeficiente medio: 542145.000
-000068_sharp.png -> Coeficiente medio: 1399496.500
+000068_blur_gamma.png -> Coeficiente medio: 0.784
+000068_sharp.png -> Coeficiente medio: 2.025
