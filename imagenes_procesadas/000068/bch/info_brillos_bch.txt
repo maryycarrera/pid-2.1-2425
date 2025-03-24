@@ -1,0 +1,5 @@
+Nivel de Brillo (método BCH)
+Carpeta de imágenes: images\000068
+
+Valores mayores corresponden a mayor brillo.
+
