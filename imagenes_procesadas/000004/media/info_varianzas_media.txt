@@ -1,0 +1,9 @@
+Varianzas de alta frecuencia (filtro de la media)
+Carpeta de imágenes: imagenes\000004
+
+La varianza indica la dispersión de los valores de alta frecuencia.
+Valores mayores suelen corresponder a más bordes y mayor nitidez.
+
+000004_blur.png -> varianza: 0.691
+000004_blur_gamma.png -> varianza: 0.640
+000004_sharp.png -> varianza: 5.379

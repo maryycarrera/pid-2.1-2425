@@ -1,0 +1,9 @@
+Varianzas de alta frecuencia (filtro gaussiano)
+Carpeta de imágenes: imagenes\000012
+
+La varianza indica la dispersión de los valores de alta frecuencia.
+Valores mayores suelen corresponder a más bordes y mayor nitidez.
+
+000012_blur.png -> varianza: 0.238
+000012_blur_gamma.png -> varianza: 0.232
+000012_sharp.png -> varianza: 1.658
