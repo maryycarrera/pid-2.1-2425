@@ -5,3 +5,5 @@ pandas
 jupyter
 nbstripout
 streamlit
+pywavelets
+

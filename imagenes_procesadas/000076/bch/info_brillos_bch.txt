@@ -1,0 +1,8 @@
+Nivel de Brillo (método BCH)
+Carpeta de imágenes: imagenes\000076
+
+Valores mayores corresponden a mayor brillo.
+
+000076_blur.png -> brillo: 176.3352
+000076_blur_gamma.png -> brillo: 178.9190
+000076_sharp.png -> brillo: 176.7081
