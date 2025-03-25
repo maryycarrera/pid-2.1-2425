@@ -5,6 +5,7 @@ from utils.filters import (
     filtro_paso_alto_gaussiano,
     filtro_paso_alto_media,
     filtro_paso_alto_mediana,
+    filtro_paso_alto_wavelet,
     medir_alta_frecuencia
 )
 
@@ -41,7 +42,7 @@ def main():
     # Elección de filtro
     filtro_seleccionado = st.radio(
         "Elige el filtro para estimar la nitidez:",
-        ("Gaussiano", "Media", "Mediana")
+        ("Gaussiano", "Media", "Mediana", "Wavelet")
     )
 
     # Botón para procesar
@@ -51,8 +52,10 @@ def main():
             filtro_func = filtro_paso_alto_gaussiano
         elif filtro_seleccionado == "Media":
             filtro_func = filtro_paso_alto_media
-        else:
+        elif filtro_seleccionado == "Mediana":
             filtro_func = filtro_paso_alto_mediana
+        else:
+            filtro_func = filtro_paso_alto_wavelet
 
         # Aquí almacenaremos la mayor varianza y la imagen "ganadora"
         mejor_varianza = -1
@@ -78,10 +81,15 @@ def main():
                 mejor_imagen = img_bgr
                 mejor_nombre = archivo.name
 
-        # Mostramos la imagen con mayor varianza (menos borrosa, supuestamente)
-        st.success(f"La imagen con mayor nitidez (según varianza) es: {mejor_nombre}")
-        st.image(cv2.cvtColor(mejor_imagen, cv2.COLOR_BGR2RGB), 
-        caption=f"{mejor_nombre} (varianza = {mejor_varianza:.3f})")
+        # Mostramos la imagen con mayor valor (menos borrosa)
+        if filtro_seleccionado == "Wavelet":
+            st.success(f"La imagen con mayor nitidez (según coeficiente medio) es: {mejor_nombre}")
+            st.image(cv2.cvtColor(mejor_imagen, cv2.COLOR_BGR2RGB), 
+                    caption=f"{mejor_nombre} (coeficiente medio = {mejor_varianza:.3f})")
+        else:
+            st.success(f"La imagen con mayor nitidez (según varianza) es: {mejor_nombre}")
+            st.image(cv2.cvtColor(mejor_imagen, cv2.COLOR_BGR2RGB), 
+                    caption=f"{mejor_nombre} (varianza = {mejor_varianza:.3f})")
 
 def run():
     main()
