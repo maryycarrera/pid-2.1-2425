@@ -1,0 +1,8 @@
+Coeficientes de alta frecuencia (Transformada de wavelet)
+Carpeta de imágenes: imagenes\000078
+
+Valores mayores suelen corresponder a más bordes y mayor nitidez.
+
+000078_blur.png -> Coeficiente medio: 0.815
+000078_blur_gamma.png -> Coeficiente medio: 0.777
+000078_sharp.png -> Coeficiente medio: 1.990
