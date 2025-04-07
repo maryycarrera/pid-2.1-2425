@@ -3,6 +3,6 @@ Carpeta de imágenes: images\000014
 
 Valores mayores corresponden a mayor brillo.
 
-000014_blur.png -> brillo: 175.5304
-000014_blur_gamma.png -> brillo: 177.8465
-000014_sharp.png -> brillo: 175.4346
+000014_blur.png -> brillo: 0.6488
+000014_blur_gamma.png -> brillo: 0.6582
+000014_sharp.png -> brillo: 0.6464
