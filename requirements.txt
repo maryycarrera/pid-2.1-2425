@@ -4,4 +4,8 @@ matplotlib
 pandas
 jupyter
 nbstripout
+streamlit
 pywavelets
+scipy
+
+

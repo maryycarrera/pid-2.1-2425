@@ -1,0 +1,8 @@
+Calidad de la imagen usando la (Transformada de wavelet)
+Carpeta de imágenes: images\000038
+
+Un valor mayor corresponde a una mayot nitidez.
+
+000038_blur.png -> Quality score: 1.477
+000038_blur_gamma.png -> Quality score: 1.482
+000038_sharp.png -> Quality score: 1.588
