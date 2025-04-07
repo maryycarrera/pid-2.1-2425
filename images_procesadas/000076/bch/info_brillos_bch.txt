@@ -3,6 +3,6 @@ Carpeta de imágenes: images\000076
 
 Valores mayores corresponden a mayor brillo.
 
-000076_blur.png -> brillo: 176.3352
-000076_blur_gamma.png -> brillo: 178.9190
-000076_sharp.png -> brillo: 176.7081
+000076_blur.png -> brillo: 0.6994
+000076_blur_gamma.png -> brillo: 0.7102
+000076_sharp.png -> brillo: 0.6999

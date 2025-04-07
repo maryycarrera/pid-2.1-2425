@@ -3,6 +3,6 @@ Carpeta de imágenes: images\000042
 
 Valores mayores corresponden a mayor brillo.
 
-000042_blur.png -> brillo: 170.9789
-000042_blur_gamma.png -> brillo: 173.2925
-000042_sharp.png -> brillo: 170.6485
+000042_blur.png -> brillo: 0.6750
+000042_blur_gamma.png -> brillo: 0.6845
+000042_sharp.png -> brillo: 0.6729
