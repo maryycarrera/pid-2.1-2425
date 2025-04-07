@@ -43,9 +43,10 @@ Las instrucciones de instalación y uso de este repositorio están explicadas pa
     pip install -r requirements.txt
     ```
 
-4. Opcionalmente, se puede utilizar el paquete `nbstripout`, que sirve para limpiar los metadatos de los notebooks antes de subirlos al repositorio local. Para utilizar esta herramienta, ejecutar el siguiente comando:
+4. Opcionalmente, se puede utilizar el paquete `nbstripout`, que sirve para limpiar los metadatos de los notebooks antes de subirlos al repositorio local. Para utilizar esta herramienta, ejecutar los siguientes comandos:
     ```
     nbstripout --install
+    nbstripout <nombre_del_archivo>.ipynb
     ```
 
     Para desactivar este paquete:
