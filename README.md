@@ -1,6 +1,6 @@
 # Comparativa de imágenes en base a su nitidez, su luminosidad y su contraste y mejora del brillo de imágenes
 
-![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Streamlit](https://img.shields.io/badge/Built%20with-Streamlit-red)
 ![MIT License](https://img.shields.io/github/license/maryycarrera/pid-2.1-2425)
 ![Último commit](https://img.shields.io/github/last-commit/maryycarrera/pid-2.1-2425)
