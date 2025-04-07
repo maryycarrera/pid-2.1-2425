@@ -18,7 +18,7 @@
 
 Este repositorio contiene una serie de cuadernos de Jupyter que se han utilizado para experimentar con los métodos estudiados. Dichos experimentos se han implementado en cuadernos diferentes según el objeto de estudio (nitidez, luminosidad o contraste) y según el método aplicado en cada uno (obtención de la nitidez usando filtros o mediante la transformada de wavelet).
 
-Las imágenes utilizadas para la experimentación se encuentran en el directorio `/imagenes`. En la carpeta `/imagenes_procesadas` se pueden ver los resultados de los experimentos, siguiendo una estructura similar a la de la carpeta `/imagenes`.
+Las imágenes utilizadas para la experimentación se encuentran en el directorio `/images`. En la carpeta `/images_procesadas` se pueden ver los resultados de los experimentos, siguiendo una estructura similar a la de la carpeta `/images`.
 
 Por otra parte, se ha desarrollado una aplicación web a pequeña escala, en la que se han implementado los métodos estudiados con el objetivo de ponerlos a prueba más fácilmente. Esta aplicación separa la comparación y selección de imágenes en base a sus parámetros (nitidez, luminosidad o contraste) de la mejora del brillo de una imagen. La interfaz de usuario es intuitiva y la lógica de la aplicación permite una rápida adaptación a su uso.
 
@@ -43,9 +43,10 @@ Las instrucciones de instalación y uso de este repositorio están explicadas pa
     pip install -r requirements.txt
     ```
 
-4. Opcionalmente, se puede utilizar el paquete `nbstripout`, que sirve para limpiar los metadatos de los notebooks antes de subirlos al repositorio local. Para utilizar esta herramienta, ejecutar el siguiente comando:
+4. Opcionalmente, se puede utilizar el paquete `nbstripout`, que sirve para limpiar los metadatos de los notebooks antes de subirlos al repositorio local. Para utilizar esta herramienta, ejecutar los siguientes comandos:
     ```
     nbstripout --install
+    nbstripout <nombre_del_archivo>.ipynb
     ```
 
     Para desactivar este paquete:
