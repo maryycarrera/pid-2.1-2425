@@ -1,8 +1,8 @@
-Coeficientes de alta frecuencia (Transformada de wavelet)
+Calidad de la imagen usando la (Transformada de wavelet)
 Carpeta de imágenes: imagenes\000050
 
-Valores mayores suelen corresponder a más bordes y mayor nitidez.
+Un valor mayor corresponde a una mayot nitidez.
 
-000050_blur.png -> Coeficiente medio: 1.298
-000050_blur_gamma.png -> Coeficiente medio: 1.305
-000050_sharp.png -> Coeficiente medio: 2.943
+000050_blur.png -> Quality score: 1.470
+000050_blur_gamma.png -> Quality score: 1.438
+000050_sharp.png -> Quality score: 1.682
