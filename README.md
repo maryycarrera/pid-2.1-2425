@@ -53,11 +53,6 @@ Las instrucciones de instalación y uso de este repositorio están explicadas pa
     nbstripout --uninstall
     ```
 
-6. Desactivar el entorno virtual.
-    ```
-    deactivate
-    ```
-
 Una vez seguidos estos pasos, ya se pueden ejecutar los notebooks de Jupyter. Basta con seleccionar el kernel de Python correspondiente al entorno virtual. Se recomienda comenzar con el notebook `configuración_inicial.ipynb`.
 
 Si se desea ejecutar la aplicación web, habrá que ejecutar el siguiente comando, con el entorno virtual activado:
@@ -67,6 +62,11 @@ streamlit run app.py
 ```
 
 Esto ejecutará la aplicación en la ruta por defecto `http://localhost:8501` y se abrirá en una ventana del navegador web.
+
+Para desactivar el entorno virtual:
+```
+deactivate
+```
 
 ---
 
