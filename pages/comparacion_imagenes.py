@@ -5,7 +5,7 @@ from utils.filters import (
     filtro_paso_alto_gaussiano,
     filtro_paso_alto_media,
     filtro_paso_alto_mediana,
-    filtro_paso_alto_wavelet,
+    obtener_calidad_imagen,
     medir_alta_frecuencia
 )
 
@@ -58,7 +58,7 @@ def main():
                 elif filtro_seleccionado == "Mediana":
                     filtro_func = filtro_paso_alto_mediana
                 else:
-                    filtro_func = filtro_paso_alto_wavelet
+                    filtro_func = obtener_calidad_imagen
 
                 mejor_valor = -1
                 mejor_imagen = None
@@ -68,9 +68,12 @@ def main():
                     archivo.seek(0)
                     file_bytes = np.asarray(bytearray(archivo.read()), dtype=np.uint8)
                     img_bgr = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-                    img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
-
-                    varianza = medir_alta_frecuencia(img_gray, filtro_func, ksize=5)
+                    if filtro_seleccionado == "Wavelet":
+                        img_YCbCr = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2YCrCb)
+                        varianza = medir_alta_frecuencia(img_YCbCr, filtro_func)
+                    else: 
+                        img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
+                        varianza = medir_alta_frecuencia(img_gray, filtro_func, ksize=5)
 
                     if varianza > mejor_valor:
                         mejor_valor = varianza
@@ -78,9 +81,9 @@ def main():
                         mejor_nombre = archivo.name
 
                 if filtro_seleccionado == "Wavelet":
-                    st.success(f"La imagen con mayor nitidez (según coeficiente medio) es: {mejor_nombre}")
+                    st.success(f"La imagen con mayor puntuación de calidad es: {mejor_nombre}")
                     st.image(cv2.cvtColor(mejor_imagen, cv2.COLOR_BGR2RGB), 
-                            caption=f"{mejor_nombre} (coeficiente medio = {mejor_valor:.3f})")
+                            caption=f"{mejor_nombre} (Puntuación de calidad = {mejor_valor:.3f})")
                 else:
                     st.success(f"La imagen con mayor nitidez (según varianza) es: {mejor_nombre}")
                     st.image(cv2.cvtColor(mejor_imagen, cv2.COLOR_BGR2RGB), 
