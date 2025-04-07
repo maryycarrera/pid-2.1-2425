@@ -48,12 +48,12 @@ Las instrucciones de instalación y uso de este repositorio están explicadas pa
     nbstripout --install
     ```
 
-5. Para desactivar este paquete:
+    Para desactivar este paquete:
     ```
     nbstripout --uninstall
     ```
 
-Una vez seguidos estos pasos, ya se pueden ejecutar los notebooks de Jupyter. Basta con seleccionar el kernel de Python correspondiente al entorno virtual. Se recomienda comenzar con el notebook `configuración_inicial.ipynb`.
+Una vez seguidos estos pasos, ya se pueden ejecutar los notebooks de Jupyter. Basta con seleccionar el kernel de Python correspondiente al entorno virtual. Se recomienda comenzar con el notebook `configuracion_inicial.ipynb`.
 
 Si se desea ejecutar la aplicación web, habrá que ejecutar el siguiente comando, con el entorno virtual activado:
 
