@@ -6,4 +6,6 @@ jupyter
 nbstripout
 streamlit
 pywavelets
+scipy
+
 
