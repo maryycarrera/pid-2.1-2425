@@ -39,7 +39,7 @@ def main():
         # First, choose comparison type
         tipo_comparacion = st.radio(
             "¿Qué quieres comparar?",
-            ("Nitidez", "Brillo")
+            ("Nitidez", "Contraste")
         )
 
         if tipo_comparacion == "Nitidez":
@@ -89,7 +89,7 @@ def main():
                     st.image(cv2.cvtColor(mejor_imagen, cv2.COLOR_BGR2RGB), 
                             caption=f"{mejor_nombre} (varianza = {mejor_valor:.3f})")
 
-        else:  # Brillo selected
+        else:  # Contraste selected
             st.write("Se utilizará el método BCH para estimar el brillo")
             if st.button("Procesar y encontrar la imagen más brillante (método BCH)"):
                 mejor_brillo = -1
