@@ -1,0 +1,9 @@
+Varianzas de los histogramas en escala de grises de las imágenes
+Carpeta de imágenes: images\000074
+
+La varianza indica la dispersión de los niveles de gris.
+Valores mayores de la varianza corresponden a mayor contraste.
+
+000074_blur.png -> varianza: 2183.450
+000074_blur_gamma.png -> varianza: 2144.415
+000074_sharp.png -> varianza: 2533.204
