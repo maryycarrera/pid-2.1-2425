@@ -10,11 +10,6 @@ from utils.filters import (
     medir_alta_frecuencia
 )
 
-# Add BCH matrix constant
-MATRIZ_BCH = np.array([[0.2053, 0.7125, 0.4670],
-                       [1.8537, -1.2797, -0.4429],
-                       [-0.3655, 1.0120, -0.6014]])
-
 def main():
     st.title("Herramienta de comparación de imágenes")
     
