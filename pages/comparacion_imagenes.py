@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import cv2
+from utils.contrast import calcular_varianza_histograma
 from utils.filters import (
     filtro_paso_alto_gaussiano,
     filtro_paso_alto_media,
@@ -86,13 +87,21 @@ def main():
                             caption=f"{mejor_nombre} (Puntuación de calidad = {mejor_valor:.3f})")
                 else:
                     st.success(f"La imagen con mayor nitidez (según varianza) es: {mejor_nombre}")
-                    st.image(cv2.cvtColor(mejor_imagen, cv2.COLOR_BGR2RGB), 
+                    st.image(cv2.cvtColor(mejor_imagen, cv2.COLOR_BGR2RGB),
                             caption=f"{mejor_nombre} (varianza = {mejor_valor:.3f})")
 
         else:  # Contraste selected
-            st.write("Se utilizará el método BCH para estimar el brillo")
-            if st.button("Procesar y encontrar la imagen más brillante (método BCH)"):
-                mejor_brillo = -1
+            # Elección de objetivo para contraste
+            objetivo_seleccionado = st.radio(
+                "Elige si quieres obtener la imagen con mayor o con menor contraste:",
+                ("Mayor", "Menor")
+            )
+            st.write("Se calculará la varianza de los histogramas de las imágenes en escala de grises para calcular el contraste.")
+            if st.button(f"Procesar y encontrar la imagen con {objetivo_seleccionado.lower()} contraste"):
+                if objetivo_seleccionado == "Mayor":
+                    mejor_contraste = -1
+                else:
+                    mejor_contraste = float('inf')
                 mejor_imagen = None
                 mejor_nombre = None
 
@@ -102,23 +111,23 @@ def main():
                     img_bgr = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
                     img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
 
-                    # Split channels and calculate BCH brightness
-                    R, G, B = cv2.split(img_rgb)
-                    alto, ancho = R.shape
-                    pixels_xyz = np.stack([R, G, B], axis=-1).reshape(-1, 3)
-                    cohen = pixels_xyz @ MATRIZ_BCH.T
-                    cohen = cohen.reshape(alto, ancho, 3)
-                    D, E, F = cohen[:, :, 0], cohen[:, :, 1], cohen[:, :, 2]
-                    brillo = np.sqrt(D**2 + E**2 + F**2).mean()
+                    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2GRAY)
+                    contraste = calcular_varianza_histograma(img_gray)
 
-                    if brillo > mejor_brillo:
-                        mejor_brillo = brillo
-                        mejor_imagen = img_bgr
-                        mejor_nombre = archivo.name
+                    if objetivo_seleccionado == "Mayor":
+                        if contraste > mejor_contraste:
+                            mejor_contraste = contraste
+                            mejor_imagen = img_bgr
+                            mejor_nombre = archivo.name
+                    else:
+                        if contraste < mejor_contraste:
+                            mejor_contraste = contraste
+                            mejor_imagen = img_bgr
+                            mejor_nombre = archivo.name
 
-                st.success(f"La imagen con mayor brillo (método BCH) es: {mejor_nombre}")
-                st.image(cv2.cvtColor(mejor_imagen, cv2.COLOR_BGR2RGB), 
-                        caption=f"{mejor_nombre} (brillo BCH = {mejor_brillo:.3f})")
+                st.success(f"La imagen con {objetivo_seleccionado.lower()} contraste (según varianza) es: {mejor_nombre}")
+                st.image(cv2.cvtColor(mejor_imagen, cv2.COLOR_BGR2RGB),
+                        caption=f"{mejor_nombre} (varianza = {mejor_contraste:.3f})")
 
     else:
         st.warning("Sube al menos 2 imágenes para poder comparar.")
