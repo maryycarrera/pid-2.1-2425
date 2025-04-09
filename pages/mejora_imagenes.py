@@ -2,51 +2,121 @@ import streamlit as st
 import numpy as np
 import cv2
 
+MATRIZ_toDEF = np.array([[0.2053, 0.7125, 0.4670],
+                        [1.8537, -1.2797, -0.4429],
+                        [-0.3655, 1.0120, -0.6014]])
+MATRIZ_toXYZ = np.array([[0.6712, 0.4955, 0.1540],
+                        [0.7061, 0.0248, 0.5223],
+                        [0.7689, -0.2556, -0.8645]])
+
+def calc_metricas_cohen(X, Y, Z):
+    alto, ancho = X.shape
+    # Stack y reshape en una matriz (N, 3)
+    pixels_xyz = np.stack([X, Y, Z], axis=-1).reshape(-1, 3)
+    # Aplicar la matriz DEF
+    cohen = pixels_xyz @ MATRIZ_toDEF.T  # Resultado (N, 3)
+    return cohen.reshape(alto, ancho, 3)
+
+def calc_bch_to_xyz(B, C, H):
+    alto, ancho = B.shape
+    # Stack y reshape en una matriz (N, 3)
+    pixels_bch = np.stack([B, C, H], axis=-1).reshape(-1, 3)
+    # Aplicar la matriz XYZ
+    xyz = pixels_bch @ MATRIZ_toXYZ.T  # Resultado (N, 3)
+    return xyz.reshape(alto, ancho, 3)
+
+def obtener_brillo_valores_def(X, Y, Z):
+    cohen = calc_metricas_cohen(X, Y, Z)
+    D, E, F = cohen[:, :, 0], cohen[:, :, 1], cohen[:, :, 2]
+    B = np.sqrt(D**2 + E**2 + F**2)
+    return B.mean(), D, E, F
+
+def obtener_def_imagen(imagen_rgb):
+    imagen_float = imagen_rgb.astype(np.float32) / 255.0
+
+    X, Y, Z = cv2.split(cv2.cvtColor(imagen_float, cv2.COLOR_RGB2XYZ))
+    
+    _, D, E, F = obtener_brillo_valores_def(X, Y, Z)
+    return D, E, F
+
 def modificar_brillo(rgb, m0):
     """
     Modifica el brillo de una imagen RGB multiplicando cada canal por m0
     """
     return np.clip(rgb * m0, 0, 255).astype(np.uint8)
 
-def calcular_b_promedio(imagen_rgb, ventana=20):
-    # Convertir a espacio de color LAB
-    lab = cv2.cvtColor(imagen_rgb, cv2.COLOR_RGB2LAB)
-    # Extraer canal L (luminosidad)
-    luminosidad = lab[:,:,0].astype(np.float32)
-    # Calcular brillo promedio en el vecindario
+def calcular_b_promedio(imagen_rgb, ventana=15):
+    """
+    Calcula el brillo promedio en un vecindario para cada píxel
+    
+    Args:
+        imagen_rgb: Imagen en formato RGB
+        ventana: Tamaño de la ventana para el promediado (ventana x ventana)
+    
+    Returns:
+        Matriz con el brillo promedio para cada píxel
+    """
+    # Obtener componentes D, E, F
+    D, E, F = obtener_def_imagen(imagen_rgb)
+    
+    # Calcular brillo como la norma euclidiana de D, E, F
+    brillo = np.sqrt(D**2 + E**2 + F**2)
+    
+    # Aplicar filtro de promedio con la ventana especificada
     kernel = np.ones((ventana, ventana), np.float32) / (ventana * ventana)
-    b_promedio = cv2.filter2D(luminosidad, -1, kernel)
+    b_promedio = cv2.filter2D(brillo, -1, kernel)
+    
     return b_promedio
 
-def mejora_contraste(imagen_rgb, k, ventana=20):
+def modificar_contraste(imagen_rgb, k, ventana=15):
     """
     Implementa la mejora de contraste preservando las coordenadas cromáticas
+    según la fórmula (9) del paper
     """
-    # Convertir a float para cálculos
-    imagen_float = imagen_rgb.astype(np.float32) / 255.0
+    # Obtener componentes D, E, F
+    D, E, F = obtener_def_imagen(imagen_rgb)
     
-    # Convertir a espacio de color LAB
-    lab_img = cv2.cvtColor(imagen_float, cv2.COLOR_RGB2LAB)
+    # Calcular brillo como la norma euclidiana de D, E, F
+    epsilon = 1e-10
+    brillo = np.sqrt(D**2 + E**2 + F**2)
     
-    # Extraer canal L (luminosidad)
-    L = lab_img[:,:,0]
+    # Calcular C y H según las fórmulas del modelo BCH
+    # C = arccos(D/B)
+    C = np.arccos(np.clip(D / (brillo + epsilon), -1.0, 1.0))
     
-    # Calcular luminosidad promedio en el vecindario usando la imagen LAB
-    b_promedio = calcular_b_promedio(lab_img, ventana)
+    # H = arccos(E/(B*sin(C)))
+    sin_C = np.sin(C)
+    # Evitar división por cero
+    mask = sin_C > epsilon
+    H = np.zeros_like(C)
+    H[mask] = np.arccos(np.clip(E[mask] / (brillo[mask] * sin_C[mask]), -1.0, 1.0))
+    
+    # Calcular luminosidad promedio en el vecindario
+    b_promedio = calcular_b_promedio(imagen_rgb, ventana)
     
     # Aplicar la fórmula de mejora de contraste
-    epsilon = 1e-10
-    ratio = np.maximum(L / (b_promedio + epsilon), 0)
-    nuevo_L = b_promedio * np.power(ratio, k)
+    ratio = brillo / (b_promedio + epsilon)
+    nuevo_B = b_promedio * np.power(ratio, k)
     
     # Limitar valores al rango válido
-    nuevo_L = np.clip(nuevo_L, 0, 100)
+    nuevo_B = np.clip(nuevo_B, 0, 255)
     
-    # Reemplazar canal L
-    lab_img[:,:,0] = nuevo_L
+    # Reconstruir D, E, F usando las fórmulas del modelo BCH
+    # D = B * cos(C)
+    nuevo_D = nuevo_B * np.cos(C)
+    # E = B * sin(C) * cos(H)
+    nuevo_E = nuevo_B * np.sin(C) * np.cos(H)
+    # F = B * sin(C) * sin(H)
+    nuevo_F = nuevo_B * np.sin(C) * np.sin(H)
+    
+    # Convertir de DEF a XYZ
+    nuevoXYZ = calc_bch_to_xyz(nuevo_D, nuevo_E, nuevo_F)
+    
+    # Asegurar que nuevoXYZ esté en el formato correcto
+    nuevoXYZ = nuevoXYZ.astype(np.float32)
     
     # Convertir de vuelta a RGB
-    resultado = cv2.cvtColor(lab_img, cv2.COLOR_LAB2RGB) * 255.0
+    resultado = cv2.cvtColor(nuevoXYZ, cv2.COLOR_XYZ2RGB) * 255
     
     # Retornar como uint8
     return np.clip(resultado, 0, 255).astype(np.uint8)
@@ -99,7 +169,7 @@ def main():
                 value=1.0,
                 step=0.1
             )
-            img_modificada = mejora_contraste(img_rgb, contraste)
+            img_modificada = modificar_contraste(img_rgb, contraste)
 
         with col2:
             st.subheader("Imagen Modificada")
