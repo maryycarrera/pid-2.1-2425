@@ -1,0 +1,4 @@
+EVALUACIÓN DEL MÉTODO DEL CÁLCULO DE LA LUMINOSIDAD:
+====================================================
+Aciertos totales del método BCH: 100.00%
+Total de casos evaluados: 88
