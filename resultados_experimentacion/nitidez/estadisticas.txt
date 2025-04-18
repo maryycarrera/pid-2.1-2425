@@ -3,6 +3,8 @@ Aciertos método mediana: 100.0%
 Aciertos método media: 100.0%
 Aciertos método wavelet: 100.0%
 
+---------------------------------
+
 Los mejores métodos son:
 - gaussiano
 - mediana
