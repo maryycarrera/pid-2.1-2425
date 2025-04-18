@@ -4,6 +4,6 @@ Carpeta de imágenes: images\000048
 La varianza indica la dispersión de los niveles de gris.
 Valores mayores de la varianza corresponden a mayor contraste.
 
-000048_blur.png -> varianza: 1411.774
-000048_blur_gamma.png -> varianza: 1376.902
-000048_sharp.png -> varianza: 1654.099
+000048_high_contrast.png -> varianza: 2015.86981
+000048_low_contrast.png -> varianza: 1460.06337
+000048_sharp.png -> varianza: 1654.09912

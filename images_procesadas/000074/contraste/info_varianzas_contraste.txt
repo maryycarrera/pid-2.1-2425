@@ -4,6 +4,6 @@ Carpeta de imágenes: images\000074
 La varianza indica la dispersión de los niveles de gris.
 Valores mayores de la varianza corresponden a mayor contraste.
 
-000074_blur.png -> varianza: 2183.450
-000074_blur_gamma.png -> varianza: 2144.415
-000074_sharp.png -> varianza: 2533.204
+000074_high_contrast.png -> varianza: 3439.46589
+000074_low_contrast.png -> varianza: 2093.34377
+000074_sharp.png -> varianza: 2533.20397
