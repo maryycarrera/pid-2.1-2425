@@ -6,4 +6,4 @@ Valores mayores suelen corresponder a más bordes y mayor nitidez.
 
 000080_blur.png -> varianza: 1.129
 000080_blur_gamma.png -> varianza: 1.085
-000080_shap.png -> varianza: 7.520
+000080_sharp.png -> varianza: 7.520

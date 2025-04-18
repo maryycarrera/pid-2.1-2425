@@ -6,4 +6,4 @@ Valores mayores de la varianza corresponden a mayor contraste.
 
 000080_blur.png -> varianza: 2217.948
 000080_blur_gamma.png -> varianza: 2202.959
-000080_shap.png -> varianza: 2447.062
+000080_sharp.png -> varianza: 2447.062
