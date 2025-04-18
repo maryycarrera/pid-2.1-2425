@@ -1,0 +1,2 @@
+Aciertos totales del cálculo del contraste: 96.59%
+Total de casos evaluados: 88
