@@ -39,11 +39,58 @@ def obtener_def_imagen(imagen_rgb):
     _, D, E, F = obtener_brillo_valores_def(X, Y, Z)
     return D, E, F
 
-def modificar_brillo(rgb, m0):
+def modificar_brillo(imagen_rgb, ev,):
     """
-    Modifica el brillo de una imagen RGB multiplicando cada canal por m0
+    Implementa la mejora de brillo preservando las coordenadas cromáticas
+    según la fórmula (5) del paper
     """
-    return np.clip(rgb * m0, 0, 255).astype(np.uint8)
+    # Obtener componentes D, E, F
+    D, E, F = obtener_def_imagen(imagen_rgb)
+    
+    # Calcular brillo como la norma euclidiana de D, E, F
+    epsilon = 1e-10
+    brillo = np.sqrt(D**2 + E**2 + F**2)
+    
+    # Calcular C y H según las fórmulas del modelo BCH
+    # C = arccos(D/B)
+    C = np.arccos(np.clip(D / (brillo + epsilon), -1.0, 1.0))
+    
+    # H = arctan2(F, E) - Usando arctan2 para obtener el ángulo completo en el rango [-π, π]
+    sin_C = np.sin(C)
+    # Evitar división por cero
+    mask = sin_C > epsilon
+    H = np.zeros_like(C)
+    
+    # E = B*sin(C)*cos(H),  F = B*sin(C)*sin(H)
+    # tan(H) = F/E  →  H = arctan2(F, E)
+    # Usar arctan2 para determinar el ángulo correctamente en todos los cuadrantes
+    H[mask] = np.arctan2(F[mask], E[mask])
+        
+    # Aplicar la fórmula de mejora de brillo
+    nuevo_B = np.power(2, ev) * brillo
+    
+    # Limitar valores al rango válido
+    nuevo_B = np.clip(nuevo_B, 0, 255)
+    
+    # Reconstruir D, E, F usando las fórmulas del modelo BCH
+    # D = B * cos(C)
+    nuevo_D = nuevo_B * np.cos(C)
+    # E = B * sin(C) * cos(H)
+    nuevo_E = nuevo_B * np.sin(C) * np.cos(H)
+    # F = B * sin(C) * sin(H)
+    nuevo_F = nuevo_B * np.sin(C) * np.sin(H)
+    
+    # Convertir de DEF a XYZ
+    nuevoXYZ = calc_bch_to_xyz(nuevo_D, nuevo_E, nuevo_F)
+    
+    # Asegurar que nuevoXYZ esté en el formato correcto
+    nuevoXYZ = nuevoXYZ.astype(np.float32)
+    
+    # Convertir de vuelta a RGB
+    resultado = cv2.cvtColor(nuevoXYZ, cv2.COLOR_XYZ2RGB) * 255
+    
+    # Retornar como uint8
+    return np.clip(resultado, 0, 255).astype(np.uint8)
 
 def calcular_b_promedio(imagen_rgb, ventana=15):
     """
@@ -84,12 +131,16 @@ def modificar_contraste(imagen_rgb, k, ventana=15):
     # C = arccos(D/B)
     C = np.arccos(np.clip(D / (brillo + epsilon), -1.0, 1.0))
     
-    # H = arccos(E/(B*sin(C)))
+    # H = arctan2(F, E) - Usando arctan2 para obtener el ángulo completo en el rango [-π, π]
     sin_C = np.sin(C)
     # Evitar división por cero
     mask = sin_C > epsilon
     H = np.zeros_like(C)
-    H[mask] = np.arccos(np.clip(E[mask] / (brillo[mask] * sin_C[mask]), -1.0, 1.0))
+    
+    # E = B*sin(C)*cos(H),  F = B*sin(C)*sin(H)
+    # tan(H) = F/E  →  H = arctan2(F, E)
+    # Usar arctan2 para determinar el ángulo correctamente en todos los cuadrantes
+    H[mask] = np.arctan2(F[mask], E[mask])
     
     # Calcular luminosidad promedio en el vecindario
     b_promedio = calcular_b_promedio(imagen_rgb, ventana)
@@ -154,9 +205,9 @@ def main():
             # Brightness adjustment
             brillo = st.slider(
                 "Ajuste de Brillo",
-                min_value=0.0,
+                min_value=-5.0,
                 max_value=5.0,
-                value=1.0,
+                value=0.0,
                 step=0.1
             )
             img_modificada = modificar_brillo(img_rgb, brillo)
