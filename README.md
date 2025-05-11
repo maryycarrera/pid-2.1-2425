@@ -62,7 +62,7 @@ Si se desea ejecutar la aplicación web, habrá que ejecutar el siguiente comand
 streamlit run app.py
 ```
 
-Esto ejecutará la aplicación en la ruta por defecto `http://localhost:8501` y se abrirá en una ventana del navegador web.
+Esto ejecutará la aplicación en la ruta por defecto `http://localhost:8501` y se abrirá en una ventana del navegador web. Debido a un [bug de streamlit](https://github.com/streamlit/streamlit/issues/6855), para terminar el proceso en ejecución habrá que escribir `Ctrl+C` en la consola de comandos o terminal que se esté utilizando **antes** de cerrar la pestaña del navegador en la que se esté visualizando la aplicación. Si se cierra la pestaña antes de ejecutar este comando, basta con abrirla de nuevo y se terminará el proceso automáticamente.
 
 Para desactivar el entorno virtual:
 ```
