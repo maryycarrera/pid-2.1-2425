@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 
 # ### 🖼️ Función para cargar imagen en RGB y escala de grises
 

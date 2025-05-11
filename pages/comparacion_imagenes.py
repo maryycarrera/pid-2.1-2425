@@ -15,7 +15,7 @@ def main():
     
     # Subida de imágenes para comparación
     imagenes_subidas = st.file_uploader(
-        "Sube tus imágenes (mínimo 2) en formato PNG/JPG:",
+        "Sube las imágenes (mínimo 2) que deseas comparar:",
         type=["png", "jpg", "jpeg"],
         accept_multiple_files=True,
         key="nitidez_uploader"
