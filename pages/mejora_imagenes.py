@@ -205,10 +205,10 @@ def main():
             # Brightness adjustment
             brillo = st.slider(
                 "Ajuste de Brillo",
-                min_value=-5.0,
-                max_value=5.0,
+                min_value=-1.0,
+                max_value=1.0,
                 value=0.0,
-                step=0.1
+                step=0.05
             )
             img_modificada = modificar_brillo(img_rgb, brillo)
         else:  # Contraste
