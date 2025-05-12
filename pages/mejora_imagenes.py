@@ -202,6 +202,14 @@ def main():
             ("Brillo", "Contraste")
         )
 
+        texto_informativo = ""
+        if tipo_ajuste == "Brillo":
+            texto_informativo = "Ajusta el brillo de la imagen multiplicando el brillo de cada píxel por un factor de 2 elevado al valor seleccionado. Este ajuste se realiza usando el modelo BCH (Brillo, Cromaticidad y Hue) y las métricas de Cohen. Puedes ajustar el brillo utilizando un valor entre -1 y 1, donde -1 reduce el brillo a la mitad y 1 lo duplica."
+        else:
+            texto_informativo = "Ajusta el contraste de la imagen utilizando la relación entre el brillo de cada píxel y el brillo promedio en su vecindario. Este ajuste se realiza usando el modelo BCH (Brillo, Cromaticidad y Hue) y las métricas de Cohen. Puedes ajustar el contraste utilizando un valor entre 0.1 y 5.0, donde 1.0 mantiene el contraste original y valores mayores lo aumentan."
+
+        st.info(texto_informativo)
+
         if tipo_ajuste == "Brillo":
             # Brightness adjustment
             brillo = st.slider(
