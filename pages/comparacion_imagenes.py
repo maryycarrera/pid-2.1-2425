@@ -49,9 +49,9 @@ def main():
             texto_informativo = ""
 
             if filtro_seleccionado == "Wavelet":
-                texto_informativo = "Se utilizará la Transformada de Wavelet para medir la calidad de la imagen. Este método consiste en descomponer la imagen en diferentes frecuencias y calcular la varianza de las altas frecuencias. La imagen con mayor varianza se considerará la más nítida. Durante la experimentación, este método ha mostrado una eficacia del 100%."
+                texto_informativo = "Se utilizará un filtro de paso alto para medir la nitidez de la imagen. Este método consiste en resaltar los bordes aplicando un filtro de paso alto, que se obtiene restando un filtro de paso bajo ({filtro_seleccionado.lower()}, en este caso) de la imagen original, y calculando la varianza de la imagen resultante. La imagen con mayor varianza se considerará la más nítida. Durante la experimentación, este método ha mostrado una eficacia del 100%."
             else:
-                texto_informativo = f"Se utilizará un filtro de paso alto para medir la nitidez de la imagen. Este método consiste en detectar los bordes de la imagen, aplicándole un filtro de paso alto obtenido a partir de la resta de un filtro de paso bajo ({filtro_seleccionado.lower()}, en este caso) y la imagen original, y calculando la varianza de dichos bordes. La imagen con mayor varianza se considerará la más nítida. Durante la experimentación, este método ha mostrado una eficacia del 100%."
+                texto_informativo = f"Se utilizará un filtro de paso alto para medir la nitidez de la imagen. Este método consiste en resaltar los bordes aplicando un filtro de paso alto, que se obtiene restando un filtro de paso bajo ({filtro_seleccionado.lower()}, en este caso) de la imagen original, y calculando la varianza de la imagen resultante. La imagen con mayor varianza se considerará la más nítida. Durante la experimentación, este método ha mostrado una eficacia del 100%."
 
             st.info(texto_informativo)
             if st.button("Procesar y encontrar la imagen más nítida"):
