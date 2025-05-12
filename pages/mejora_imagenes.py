@@ -173,6 +173,7 @@ def modificar_contraste(imagen_rgb, k, ventana=15):
     return np.clip(resultado, 0, 255).astype(np.uint8)
 
 def main():
+    st.set_page_config(page_title="Mejora de Imágenes")
     st.title("Herramienta de mejora de imágenes")
     
     # Subida de imagen para mejora
