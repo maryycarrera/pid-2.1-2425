@@ -3,10 +3,12 @@ import streamlit as st
 def main():
     st.set_page_config(page_title="Filtro de Imágenes", layout="centered", initial_sidebar_state="collapsed")
 
-    st.title("Selector de herramientas")
+    st.title("Comparación y Mejora de Imágenes en base a sus Hiperparámetros de Calidad")
     st.write(
         """
-        Esta aplicación te ofrece dos herramientas:
+        ¡Bienvenid@ a nuestra aplicación!\n
+        ¿No puedes elegir entre dos imágenes? ¿Quieres saber cuál de las dos tiene mayor calidad? ¿O simplemente quieres mejorar la calidad de una imagen? ¡No te preocupes! Esta aplicación te ayudará a comparar y mejorar imágenes en base a sus hiperparámetros de calidad.\n
+        ¿A qué estás esperando? ¡Elige una herramienta!
         """
     )
 
