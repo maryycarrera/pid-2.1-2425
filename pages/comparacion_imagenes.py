@@ -49,7 +49,7 @@ def main():
             texto_informativo = ""
 
             if filtro_seleccionado == "Wavelet":
-                texto_informativo = "Se utilizará un filtro de paso alto para medir la nitidez de la imagen. Este método consiste en resaltar los bordes aplicando un filtro de paso alto, que se obtiene restando un filtro de paso bajo ({filtro_seleccionado.lower()}, en este caso) de la imagen original, y calculando la varianza de la imagen resultante. La imagen con mayor varianza se considerará la más nítida. Durante la experimentación, este método ha mostrado una eficacia del 100%."
+                texto_informativo = "Se utilizará la Transformada de Wavelet para medir la nitidez de la imagen. Este método descompone la imagen en diferentes frecuencias y calcula la varianza de las componentes de alta frecuencia. La imagen con mayor varianza en estas componentes se considerará la más nítida. Durante la experimentación, este método ha mostrado una eficacia del 100%."
             else:
                 texto_informativo = f"Se utilizará un filtro de paso alto para medir la nitidez de la imagen. Este método consiste en resaltar los bordes aplicando un filtro de paso alto, que se obtiene restando un filtro de paso bajo ({filtro_seleccionado.lower()}, en este caso) de la imagen original, y calculando la varianza de la imagen resultante. La imagen con mayor varianza se considerará la más nítida. Durante la experimentación, este método ha mostrado una eficacia del 100%."
 
